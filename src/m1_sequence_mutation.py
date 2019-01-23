@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Alex Wolfe.
+"""  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -32,13 +32,28 @@ def run_test_zero_changer():
     print('  Actual:  ', test1)
 
     # -------------------------------------------------------------------------
-    # TODO: 2. Write at least 2 additional tests for the
+    # done: 2. Write at least 2 additional tests for the
     #    zero_changer
     # function.  Try to choose some unexpected things like empty lists
     # or an empty tuple, or a list with no zeros, etc.
     # -------------------------------------------------------------------------
+    #Test 2:
+    test2 = ([1,2,3],[56,45,24],[0,0,0,0],[])
+    expected2 = ([1,2,3],[56,45,24],[1,2,3,4],[])
+    zero_changer(test2)
+    print()
+    print('Test 2:')
+    print('  Expected:', expected2)
+    print('  Actual:  ', test2)
 
-
+    #Test 3:
+    test3 = ([1,2,3,4],[5,6,7,8],[8,9])
+    expected3 = ([1,2,3,4],[5,6,7,8],[8,9])
+    zero_changer(test3)
+    print()
+    print('Test 3:')
+    print('  Expected:', expected3)
+    print('  Actual:  ', test3)
 def zero_changer(tuple_of_lists):
     """
     What comes in:  A TUPLE of LISTs,
@@ -64,7 +79,7 @@ def zero_changer(tuple_of_lists):
       :type tuple_of_lists: tuple of list[int]
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # done: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
     # -------------------------------------------------------------------------
@@ -72,7 +87,13 @@ def zero_changer(tuple_of_lists):
     #    DIFFICULTY:      7
     #    TIME ESTIMATE:  10 minutes.
     # -------------------------------------------------------------------------
-
+    count = 1
+    for k in range(len(tuple_of_lists)):
+        length = len(tuple_of_lists[k])
+        for i in range(length):
+            if tuple_of_lists[k][i] == 0:
+                tuple_of_lists[k][i] = count
+                count = count + 1
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
