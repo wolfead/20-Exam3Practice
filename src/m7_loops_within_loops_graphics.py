@@ -8,7 +8,7 @@ Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
          and Alex Wolfe.
 """  # done: 1. PUT YOUR NAME IN THE ABOVE LINE.
-
+import math
 ###############################################################################
 # Students:
 #
@@ -90,7 +90,7 @@ def hourglass(window, n, point, radius, color):
     a color that rosegraphics understands.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # done: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # -------------------------------------------------------------------------
     ###########################################################################
@@ -102,6 +102,39 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
+    circle = rg.Circle(point,radius)
+    circle.fill_color = color
+    circle.attach_to(window)
+    line = rg.Line(rg.Point(point.x - radius,point.y),rg.Point(point.x + radius,point.y))
+    line.attach_to(window)
+    window.render()
+    newcenterx = circle.center.x - radius
+    newcentery = circle.center.y - math.sqrt(3) * radius
+
+    for h in range(n-1):
+        for j in range(h+2):
+            newcircle = rg.Circle(rg.Point(newcenterx,newcentery),radius)
+            line = rg.Line(rg.Point(newcenterx - radius,newcentery),rg.Point(newcenterx + radius,newcentery))
+            newcircle.fill_color = color
+            newcenterx = newcenterx + 2*radius
+            newcircle.attach_to(window)
+            line.attach_to(window)
+        newcentery = newcentery - (math.sqrt(3) * radius)
+        newcenterx = circle.center.x - (radius*(h + 2))
+    newcentery = circle.center.y + math.sqrt(3) * radius
+    newcenterx = circle.center.x - radius
+    for h in range(n-1):
+        for j in range(h+2):
+            newcircle = rg.Circle(rg.Point(newcenterx,newcentery),radius)
+            line = rg.Line(rg.Point(newcenterx - radius, newcentery), rg.Point(newcenterx + radius, newcentery))
+            newcircle.fill_color = color
+            newcenterx = newcenterx + 2*radius
+            newcircle.attach_to(window)
+            line.attach_to(window)
+        newcentery = newcentery + (math.sqrt(3) * radius)
+        newcenterx = circle.center.x - (radius*(h + 2))
+    window.render()
+
 
 
 def run_test_many_hourglasses():
@@ -164,7 +197,7 @@ def many_hourglasses(window, square, m, colors):
     each of which denotes a color that rosegraphics understands.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # done: 3. Implement and test this function.
     #       We provided some tests for you (above).
     # -------------------------------------------------------------------------
     ###########################################################################
@@ -180,8 +213,18 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
-
-
+    newsquare = rg.Square(square.center,square.length_of_each_side)
+    newsquare.attach_to(window)
+    for h in range(m):
+        hourglass(window,h+1,square.center,(square.length_of_each_side) / 2,colors[(h%len(colors))])
+        newrect = rg.Rectangle(rg.Point(square.center.x + square.length_of_each_side / 2 * (h + 1),
+                                        (square.center.y + (square.length_of_each_side / 2) + math.sqrt(3) * (square.length_of_each_side / 2) * h)),
+                               rg.Point(square.center.x - (square.length_of_each_side / 2)
+                                        * (h + 1),
+                                        square.center.y - (square.length_of_each_side / 2) - math.sqrt(3) * (square.length_of_each_side / 2) * h))
+        square.center.x = square.center.x + ((square.length_of_each_side) / 2) * (1 + (2*(h+1)))
+        newrect.attach_to(window)
+        window.render()
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # -----------------------------------------------------------------------------
